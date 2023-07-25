@@ -3,13 +3,13 @@ const newFormHandler = async (event) => {
 
 
   //NEED TO TAKE A LOOK AT THIS!!!!
-  const name = document.querySelector('#post-name').value.trim();
-  const description = document.querySelector('#posts-desc').value.trim();
+  const title = document.querySelector('#post-name').value.trim();
+  const text_content = document.querySelector('#post-desc').value.trim();
 
-  if (name &&  description) {
+  if (title &&  text_content) {
     const response = await fetch(`/api/posts`, {
       method: 'POST',
-      body: JSON.stringify({ name, description }),
+      body: JSON.stringify({ title, text_content }),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -18,7 +18,7 @@ const newFormHandler = async (event) => {
     if (response.ok) {
       document.location.replace('/dashboard');
     } else {
-      alert('Failed to create project');
+      alert('Failed to create post');
     }
   }
 };
