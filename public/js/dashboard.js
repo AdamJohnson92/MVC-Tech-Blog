@@ -6,7 +6,9 @@ const newFormHandler = async (event) => {
   const title = document.querySelector('#post-name').value.trim();
   const text_content = document.querySelector('#post-desc').value.trim();
 
-  if (title &&  text_content) {
+
+  //takes the title text of the post from the user-submitted front end and submits it through a POST fetch request. 
+  if (title && text_content) {
     const response = await fetch(`/api/posts`, {
       method: 'POST',
       body: JSON.stringify({ title, text_content }),
@@ -14,7 +16,7 @@ const newFormHandler = async (event) => {
         'Content-Type': 'application/json',
       },
     });
-
+//reloads the page if the response to the req passes. 
     if (response.ok) {
       document.location.replace('/dashboard');
     } else {
@@ -23,6 +25,7 @@ const newFormHandler = async (event) => {
   }
 };
 
+//applies the event handler to the target of the user's delete req, and deletes that post by grabbing that target's attribute id. 
 const delButtonHandler = async (event) => {
   if (event.target.hasAttribute('data-id')) {
     const id = event.target.getAttribute('data-id');
@@ -39,10 +42,8 @@ const delButtonHandler = async (event) => {
   }
 };
 
-document
-  .querySelector('.new-post-form')
-  .addEventListener('submit', newFormHandler);
+document.querySelector('.new-post-form');
+document.addEventListener('submit', newFormHandler);
 
-document
-  .querySelector('.post-list')
-  .addEventListener('click', delButtonHandler);
+document.querySelector('.post-list');
+document.addEventListener('click', delButtonHandler);

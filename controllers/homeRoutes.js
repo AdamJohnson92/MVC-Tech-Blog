@@ -4,7 +4,7 @@ const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
   try {
-    // Get all posts and JOIN with user data
+    // Get all posts in the db and JOIN with the name of the user who posted it. 
     const postData = await Post.findAll({
       include: [
         {
@@ -14,10 +14,10 @@ router.get('/', async (req, res) => {
       ],
     });
 
-    // Serialize data so the template can read it
+    // Serialize components of the post so the template can read it
     const posts = postData.map((post) => post.get({ plain: true }));
 
-    // Pass serialized data and session flag into template
+    // Pass the parsed data and session flag into handlebars homepage template
     res.render('homepage', { 
       posts, 
       logged_in: req.session.logged_in 
@@ -27,6 +27,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+//for if the user searches for a single post by id, and include the name of the user who created that post. 
 router.get('/post/:id', async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id, {
@@ -40,6 +41,7 @@ router.get('/post/:id', async (req, res) => {
 
     const post = postData.get({ plain: true });
 
+    //renders to the post handlebars template
     res.render('post', {
       ...post,
       logged_in: req.session.logged_in
@@ -49,17 +51,17 @@ router.get('/post/:id', async (req, res) => {
   }
 });
 
-// Use withAuth middleware to prevent access to route
+// This confirms that the user has been authorized to access their own dashboard through the authorization
 router.get('/dashboard', withAuth, async (req, res) => {
   try {
-    // Find the logged in user based on the session ID
+    // Find the logged in user based on the session ID, and include all posts from that user. 
     const userData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ['password'] },
       include: [{ model: Post }],
     });
 
     const user = userData.get({ plain: true });
-
+    console.log(user)
     res.render('dashboard', {
       ...user,
       logged_in: true

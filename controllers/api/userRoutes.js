@@ -1,10 +1,13 @@
 const router = require('express').Router();
 const { User } = require('../../models');
 
+
+//Creates a new user when submitted through the fetch request from signupFormHandler in the login.js
 router.post('/', async (req, res) => {
   try {
     const userData = await User.create(req.body);
 
+    //saves the session as it begins through logging in the user that just signed up.
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
@@ -16,8 +19,11 @@ router.post('/', async (req, res) => {
   }
 });
 
+
+//if a user wants to login through the login page, this function makes sure the login creds match a single user from the dn
 router.post('/login', async (req, res) => {
   try {
+    //first, make sure that you take the email submitted by user in req matches one email, and alerts if it doesn't match. 
     const userData = await User.findOne({ where: { email: req.body.email } });
 
     if (!userData) {
@@ -27,6 +33,7 @@ router.post('/login', async (req, res) => {
       return;
     }
 
+    //makes sure that the password from the user req matches the password of user in the db with that email. It does this through the instance of the model that is called in User.findOne.
     const validPassword = await userData.checkPassword(req.body.password);
 
     if (!validPassword) {
@@ -36,6 +43,7 @@ router.post('/login', async (req, res) => {
       return;
     }
 
+    //starts the session and logs the user in. 
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
@@ -48,6 +56,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
+//ends the session with logs the user out. 
 router.post('/logout', (req, res) => {
   if (req.session.logged_in) {
     req.session.destroy(() => {

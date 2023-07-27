@@ -1,10 +1,11 @@
 const loginFormHandler = async (event) => {
   event.preventDefault();
 
-  // Collect values from the login form
+  // Collects the information that the user submitted through the login form and puts them into variables. 
   const email = document.querySelector('#email-login').value.trim();
   const password = document.querySelector('#password-login').value.trim();
 
+  //sends those variables through the login post fetch request. 
   if (email && password) {
     // Send a POST request to the API endpoint
     const response = await fetch('/api/users/login', {
@@ -13,8 +14,8 @@ const loginFormHandler = async (event) => {
       headers: { 'Content-Type': 'application/json' },
     });
 
+    //If it works, send them to the user dashboard. 
     if (response.ok) {
-      // If successful, redirect the browser to the profile page
       document.location.replace('/dashboard');
     } else {
       alert(response.statusText);
@@ -29,6 +30,7 @@ const signupFormHandler = async (event) => {
   const email = document.querySelector('#email-signup').value.trim();
   const password = document.querySelector('#password-signup').value.trim();
 
+  //sends the req body using the informaiton that the user entered into the signup form and passes through the api/users api route to post a new user to the database. 
   if (name && email && password) {
     const response = await fetch('/api/users', {
       method: 'POST',
@@ -44,10 +46,8 @@ const signupFormHandler = async (event) => {
   }
 };
 
-document
-  .querySelector('.login-form')
-  .addEventListener('submit', loginFormHandler);
+document.querySelector('.login-form');
+document.addEventListener('submit', loginFormHandler);
 
-document
-  .querySelector('.signup-form')
-  .addEventListener('submit', signupFormHandler);
+document.querySelector('.signup-form');
+document.addEventListener('submit', signupFormHandler);

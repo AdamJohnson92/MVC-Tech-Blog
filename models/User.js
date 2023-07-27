@@ -36,6 +36,7 @@ User.init(
       },
     },
   },
+  //stops the user from just being created before the submitted password has been encrypted.
   {
     hooks: {
       beforeCreate: async (newUserData) => {
