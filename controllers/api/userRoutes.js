@@ -5,6 +5,7 @@ const { User } = require('../../models');
 //Creates a new user when submitted through the fetch request from signupFormHandler in the login.js
 router.post('/', async (req, res) => {
   try {
+    console.log(req.body)
     const userData = await User.create(req.body);
 
     //saves the session as it begins through logging in the user that just signed up.
