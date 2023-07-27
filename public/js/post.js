@@ -1,12 +1,15 @@
+const id = document.querySelector('.btn').getAttribute("data-id");
+
 const updateFormHandler = async (event) => {
     event.preventDefault();
   
     const title = document.querySelector('#post-name').value.trim();
     const text_content = document.querySelector('#post-desc').value.trim();
-  
+    
+   console.log(title, text_content)
     //takes the title text of the post from the user-submitted front end and submits it through a POST fetch request. 
     if (title && text_content) {
-      const response = await fetch(`/api/posts`, {
+      const response = await fetch(`/api/posts/${id}`, {
         method: 'PUT',
         body: JSON.stringify({ title, text_content }),
         headers: {
@@ -20,8 +23,7 @@ const updateFormHandler = async (event) => {
         alert('Failed to update post');
       }
     }
-
   };
-
+  
 document.querySelector('.update-post-form');
 document.addEventListener('submit', updateFormHandler);

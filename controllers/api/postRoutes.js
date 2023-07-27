@@ -3,6 +3,7 @@ const { Post } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 //First confirms that the user is logged in through withAuth, and then allows the user to create a new Post
+
 router.post('/', withAuth, async (req, res) => {
   try {
     const newPost = await Post.create({
@@ -19,17 +20,19 @@ router.post('/', withAuth, async (req, res) => {
 
 router.put('/:id', withAuth, async (req, res) => {
   try {
-    const updatedPost = await Post.update(
-      {
-        title: req.body.title,
-        text_content: req.body.text_content
-      },
+    console.log("HEREEEEEEEEEEEEE")
+    console.log(req.body)
+    const updatedPost = await Post.update(req.body,
       {
         where: {
           id: req.params.id,
-          user_id: req.session.user_id,
         },
-      });
+      },
+      // {
+      //   title: req.body.title,
+      //   text_content: req.body.text_content
+      // }
+      );
     //if the post req passes, the Post object is updated, otherwise, throw an error
     res.status(200).json(updatedPost);
   } catch (err) {
@@ -40,6 +43,7 @@ router.put('/:id', withAuth, async (req, res) => {
 //takes a post id as a parameter and deletes that object if the user is logged in with the same user id as the post, and where the post id is the same as the parameter.
 router.delete('/:id', withAuth, async (req, res) => {
   try {
+    
     const postData = await Post.destroy({
       where: {
         id: req.params.id,
