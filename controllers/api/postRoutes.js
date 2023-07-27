@@ -17,6 +17,26 @@ router.post('/', withAuth, async (req, res) => {
   }
 });
 
+router.put('/:id', withAuth, async (req, res) => {
+  try {
+    const updatedPost = await Post.update(
+      {
+        title: req.body.title,
+        text_content: req.body.text_content
+      },
+      {
+        where: {
+          id: req.params.id,
+          user_id: req.session.user_id,
+        },
+      });
+    //if the post req passes, the Post object is updated, otherwise, throw an error
+    res.status(200).json(updatedPost);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
 //takes a post id as a parameter and deletes that object if the user is logged in with the same user id as the post, and where the post id is the same as the parameter.
 router.delete('/:id', withAuth, async (req, res) => {
   try {
