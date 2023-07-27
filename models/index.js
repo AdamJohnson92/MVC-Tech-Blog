@@ -1,5 +1,6 @@
 const User = require('./User');
 const Post = require('./Post');
+const Comment = require('./Comment')
 
 //Defines relationships between Users and Posts
 User.hasMany(Post, {

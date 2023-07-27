@@ -5,6 +5,7 @@
   <p>Created by {{user.name}} on {{format_date date_created}}</p>
   <p>
   </p>
+  {{#if logged_in}}
   <form class="form update-post-form">
     <h3>Update This Post</h3>
       <div class="form-group">
@@ -21,5 +22,5 @@
     </form>
   </div>
 </div>
-
+{{/if}}
 <script src="/js/post.js"></script>
