@@ -18,7 +18,7 @@ const loginFormHandler = async (event) => {
     if (response.ok) {
       document.location.replace('/dashboard');
     } else {
-      alert(response.statusText);
+      alert('Incorrect email or password');
     }
   }
 };
@@ -41,7 +41,7 @@ const signupFormHandler = async (event) => {
     if (response.ok) {
       document.location.replace('/dashboard');
     } else {
-      alert(response.statusText);
+      alert('Invalid username, email, or password. Passwords must be at least 8 characters in length.');
     }
   }
 };
