@@ -26,6 +26,7 @@ router.post('/login', async (req, res) => {
   try {
     //first, make sure that you take the email submitted by user in req matches one email, and alerts if it doesn't match. 
     const userData = await User.findOne({ where: { email: req.body.email } });
+    console.log(userData)
 
     if (!userData) {
       res
