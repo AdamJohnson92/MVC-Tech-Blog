@@ -38,18 +38,18 @@ const commentFormHandler = async (event) => {
  console.log(text_content)
   //takes the title text of the post from the user-submitted front end and submits it through a POST fetch request. 
   if (text_content) {
-    const response = await fetch(`/api/posts/${id}`, {
+    const response = await fetch(`/api/comments/`, {
       method: 'POST',
-      body: JSON.stringify({ text_content }),
+      body: JSON.stringify({ text_content, post_id:id }),
       headers: {
         'Content-Type': 'application/json',
       },
     });
 //reloads the page if the response to the req passes. 
     if (response.ok) {
-      document.location.replace('/dashboard');
+      document.location.replace(`/post/${id}`);
     } else {
-      alert('Failed to update post');
+      alert('Failed to add a comment');
     }
   }
 };
