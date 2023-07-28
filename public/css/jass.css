@@ -28,6 +28,15 @@ main {
   display: block;
 }
 
+.comment-section {
+  display:flex;
+  width: 50%;
+  justify-content: center;
+  flex-direction: column;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-left:25%;
+}
 /**
  * Correct the font size and margin on `h1` elements within `section` and
  * `article` contexts in Chrome, Firefox, and Safari.

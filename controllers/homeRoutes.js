@@ -36,10 +36,14 @@ router.get('/post/:id', async (req, res) => {
           model: User,
           attributes: ['name'],
         },
+        {
+          model: Comment,
+          attributes: ['text_content']
+        },
       ],
     });
-
     const post = postData.get({ plain: true });
+    console.log(post)
 
     //renders to the post handlebars template
     res.render('post', {

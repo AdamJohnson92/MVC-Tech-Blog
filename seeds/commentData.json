@@ -1,0 +1,32 @@
+[
+    {
+        "text_content": "Good idea!",
+        "user_id": 1,
+        "post_id": 1
+    },
+    {
+        "text_content": "ok",
+        "user_id": 1,
+        "post_id": 2
+    },
+    {
+        "text_content": "They do not.",
+        "user_id": 1,
+        "post_id": 3
+    },
+    {
+        "text_content": "Thanks!",
+        "user_id": 1,
+        "post_id": 1
+    },
+    {
+        "text_content": "You're lame.",
+        "user_id": 1,
+        "post_id": 2
+    },
+    {
+        "text_content": "Maybe?",
+        "user_id": 1,
+        "post_id": 3
+    }
+]
