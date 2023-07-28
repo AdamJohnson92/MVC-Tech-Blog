@@ -38,7 +38,9 @@ router.get('/post/:id', async (req, res) => {
         },
         {
           model: Comment,
-          attributes: ['text_content']
+          attributes: ['text_content'],
+          include:[{model:User,
+          attribute: 'name'}]
         },
       ],
     });
@@ -48,7 +50,8 @@ router.get('/post/:id', async (req, res) => {
     //renders to the post handlebars template
     res.render('post', {
       ...post,
-      logged_in: req.session.logged_in
+      logged_in: req.session.logged_in,
+      name: req.session.name
     });
   } catch (err) {
     res.status(500).json(err);
